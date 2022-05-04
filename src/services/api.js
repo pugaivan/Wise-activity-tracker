@@ -17,3 +17,9 @@ export const getTotalDistance = async () => {
 
     return res
 }
+
+export const getLongestActivities = async () => {
+    const res = await axios.get(`${API_URL}/longest`)
+
+    return res
+}
