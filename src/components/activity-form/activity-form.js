@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createActivity } from '../../services/api';
 
 const ACTIVITY_TYPES = {
     RIDE: 'Ride',
@@ -21,18 +22,24 @@ const ActivityForm = () => {
     const onTypeChange = (event) => setType(event.target.value);
     
 
-    const onFormSubmit = () => {
+    const onFormSubmit = (event) => {
+        event.preventDefault()
         const startDate = new Date(startTime);
         const finishDate = new Date(finishTime);
         const msDifference = finishDate - startDate
         const startMonthAndDay = `${MONTH_NAMES[startDate.getMonth()]} ${startDate.getDay()}`
         
-        //call API
+        createActivity({
+            msDifference,
+            startMonthAndDay,
+            distance,
+            type
+        })
     }
 
     return (
         <div>
-            <form onSubmit={onFormSubmit}>
+            <form onSubmit={onFormSubmit} >
                 <input type='datetime-local' onChange={onStartTimeChange}></input>
                 <input type='datetime-local' onChange={onFinishTimeChange}></input>
                 <input type='number' placeholder='Distance' onChange={onDistanceChange}></input>
