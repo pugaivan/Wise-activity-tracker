@@ -11,3 +11,9 @@ export const getActivities = async () => {
 
     return res
 }
+
+export const getTotalDistance = async () => {
+    const res = await axios.get(`${API_URL}/total`)
+
+    return res
+}
