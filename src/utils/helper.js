@@ -1,11 +1,11 @@
+export function msToTime(duration) {
+    let milliseconds = Math.floor((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-export function msToTime(ms) {
-    const minutes = (ms / (1000 * 60)).toFixed(0);
-    const hours = (ms / (1000 * 60 * 60)).toFixed(0);
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-    if (minutes < 60) {
-        return minutes + 'minutes'
-    }
-
-    return hours + 'h';
+    return hours ? hours + " h " + minutes + " m" : minutes + ' minutes'
 }
