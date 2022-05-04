@@ -35,3 +35,13 @@ app.get('/activities', (req, res) => {
   res.send(data)
 })
 
+
+app.get('/total', (req, res) => {
+  const data = {
+    totalRideDistance: 15,
+    totalRunDistance: 5
+  }
+  res.send(data)
+})
+
+
