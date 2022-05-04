@@ -45,3 +45,12 @@ app.get('/total', (req, res) => {
 })
 
 
+app.get('/longest', (req, res) => {
+  const data = {
+    longestRide: {date: 'December 11',distance: 25, time: 6300000},
+    longestRun: {date: 'May 12',distance: 5, time: 1620000}
+  }
+  res.send(data)
+})
+
+

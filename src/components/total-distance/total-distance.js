@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getTotalDistance } from '../../services/api'
 
 const TotalDistance = () => {
-    const [totalRide, setTotalRide] = useState([])
-    const [totalRun, setTotalRun] = useState([])
+    const [totalRide, setTotalRide] = useState('')
+    const [totalRun, setTotalRun] = useState('')
 
     useEffect(() => {
         async function fetchData() {
