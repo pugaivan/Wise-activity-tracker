@@ -16,3 +16,22 @@ app.post('/create', (req, res) => {
   console.log(req.body)
   res.sendStatus(200)
 })
+
+app.get('/activities', (req, res) => {
+  const data = [
+    {
+      startMonthAndDay: 'December 1',
+      type: 'Run',
+      msDifference: 1620000,
+      distance: 6
+    },
+    {
+      startMonthAndDay: 'May 1',
+      type: 'Ride',
+      msDifference: 6300000,
+      distance: 25
+    }
+  ]
+  res.send(data)
+})
+
