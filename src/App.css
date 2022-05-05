@@ -1,0 +1,14 @@
+.activity-app{
+    margin: auto;
+    width: 900px;
+}
+
+header{
+    text-align: center;
+    background-color: #cae9fd;
+    border: 2px solid #a6b8ca;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    font-size: 23px;
+}
