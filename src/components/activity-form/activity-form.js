@@ -42,7 +42,7 @@ const ActivityForm = () => {
             <form onSubmit={onFormSubmit} >
                 <input type='datetime-local' onChange={onStartTimeChange}></input>
                 <input type='datetime-local' onChange={onFinishTimeChange}></input>
-                <input type='number' placeholder='Distance' onChange={onDistanceChange}></input>
+                <input type='number' step='0.1'  placeholder='Distance' onChange={onDistanceChange}></input>
                 <select onChange={onTypeChange}>
                     <option>{ACTIVITY_TYPES.RUN}</option>
                     <option>{ACTIVITY_TYPES.RIDE}</option>

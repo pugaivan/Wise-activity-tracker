@@ -1,9 +1,19 @@
 const express = require("express");
 const cors = require("cors")
+const mysql = require('mysql');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'activity_tracker'
+});
+
+connection.connect();
 
 app.use(express.json())
 app.use(cors())
@@ -14,6 +24,11 @@ app.listen(PORT, () => {
 
 app.post('/create', (req, res) => {
   console.log(req.body)
+  const {msDifference,startMonthAndDay,distance,type} = req.body
+  const query = `INSERT INTO activity(ms_difference,start_month_and_day,distance,activity_type) VALUES (${msDifference},'${startMonthAndDay}',${distance},'${type}');`
+  connection.query(query, function (err, rows, fields) {
+    console.log(rows,fields,err)
+  });
   res.sendStatus(200)
 })
 
@@ -47,10 +62,8 @@ app.get('/total', (req, res) => {
 
 app.get('/longest', (req, res) => {
   const data = {
-    longestRide: {date: 'December 11',distance: 25, time: 6300000},
-    longestRun: {date: 'May 12',distance: 5, time: 1620000}
+    longestRide: { date: 'December 11', distance: 25, time: 6300000 },
+    longestRun: { date: 'May 12', distance: 5, time: 1620000 }
   }
   res.send(data)
 })
-
-
