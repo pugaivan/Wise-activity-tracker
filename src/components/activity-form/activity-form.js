@@ -7,7 +7,7 @@ const ACTIVITY_TYPES = {
 }
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December"
 ];
 
 const ActivityForm = () => {
@@ -17,19 +17,19 @@ const ActivityForm = () => {
     const [type, setType] = useState(ACTIVITY_TYPES.RUN);
 
     const onStartTimeChange = (event) => setStartTime(event.target.value);
-    const onFinishTimeChange = (event) =>  setFinishTime(event.target.value);
+    const onFinishTimeChange = (event) => setFinishTime(event.target.value);
     const onDistanceChange = (event) => setDistance(event.target.value);
     const onTypeChange = (event) => setType(event.target.value);
-    
 
-    const onFormSubmit = (event) => {
+
+    const onFormSubmit = async (event) => {
         event.preventDefault()
         const startDate = new Date(startTime);
         const finishDate = new Date(finishTime);
         const msDifference = finishDate - startDate
         const startMonthAndDay = `${MONTH_NAMES[startDate.getMonth()]} ${startDate.getDay()}`
-        
-        createActivity({
+
+        await createActivity({
             msDifference,
             startMonthAndDay,
             distance,
@@ -42,7 +42,7 @@ const ActivityForm = () => {
             <form onSubmit={onFormSubmit} >
                 <input type='datetime-local' onChange={onStartTimeChange}></input>
                 <input type='datetime-local' onChange={onFinishTimeChange}></input>
-                <input type='number' placeholder='Distance' onChange={onDistanceChange}></input>
+                <input type='number' step='0.1' placeholder='Distance' onChange={onDistanceChange}></input>
                 <select onChange={onTypeChange}>
                     <option>{ACTIVITY_TYPES.RUN}</option>
                     <option>{ACTIVITY_TYPES.RIDE}</option>

@@ -1,11 +1,11 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { getLongestActivities } from '../../services/api'
-import {msToTime} from  '../../utils/helper'
+import { msToTime } from '../../utils/helper'
 
 
 const LongestActivities = () => {
-    const [longestRide, setLongestRide] = useState({})
-    const [longestRun, setLongestRun] = useState({})
+    const [longestRide, setLongestRide] = useState(null)
+    const [longestRun, setLongestRun] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -19,18 +19,22 @@ const LongestActivities = () => {
 
     return (
         <div>
-            <div>
-                <h3>Longest ride:</h3>
-                <span>{longestRide.date}</span>
-                <span>{longestRide.distance} km</span>
-                <span>{msToTime(longestRide.time)}</span>
-            </div>
-            <div>
-                <h3>Longest run:</h3>
-                <span>{longestRun.date}</span>
-                <span>{longestRun.distance} km</span>
-                <span>{msToTime(longestRun.time)}</span>
-            </div>
+            {longestRide && (
+                <div>
+                    <h3>Longest ride:</h3>
+                    <span>{longestRide.startMonthAndDay}</span>
+                    <span>{longestRide.distance} km</span>
+                    <span>{msToTime(longestRide.msDifference)}</span>
+                </div>
+            )}
+            {longestRun && (
+                <div>
+                    <h3>Longest run:</h3>
+                    <span>{longestRun.startMonthAndDay}</span>
+                    <span>{longestRun.distance} km</span>
+                    <span>{msToTime(longestRun.msDifference)}</span>
+                </div>
+            )}
         </div>
     )
 }
