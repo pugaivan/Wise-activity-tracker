@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getTotalDistance } from '../../services/api'
+import './total-distance.css'
 
 const TotalDistance = () => {
     const [totalRide, setTotalRide] = useState('')
@@ -15,9 +16,11 @@ const TotalDistance = () => {
     }, [])
 
     return (
-        <div>
+        <div className="total-wrapper">
+            <div className="total-distance-text">
             <span>Total ride distance: {totalRide}</span>
             <span>Total run distance: {totalRun}</span>
+            </div>
         </div>
     )
 }

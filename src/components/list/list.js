@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ListItem from "./list-item"
 import { getActivities } from '../../services/api'
+import './list.css'
 
 const List = () => {
     const [activities, setActivities] = useState([])

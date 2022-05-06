@@ -1,0 +1,10 @@
+.longest-activities{
+    background-color: #fcecec;
+    border: 2px solid #dfd8d6;
+    text-align: center;
+}
+
+.longest-content-text{
+    display: flex;
+    justify-content: space-around;
+}
