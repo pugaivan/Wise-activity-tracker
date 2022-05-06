@@ -10,10 +10,16 @@ const App = () => {
     return (
         <div className='activity-app'>
             <header>Activivty tracker</header>
-            <ActivityForm/>
-            <List/>
-            <TotalDistance/>
-            <LongestActivities/>
+            <ActivityForm />
+            <div className='activity-data-conteiner'>
+                <div className='list-conteiner'>
+                    <List />
+                </div>
+                <div className='info-conteiner'>
+                    <LongestActivities />
+                    <TotalDistance />
+                </div>
+            </div>
         </div>
     )
 }

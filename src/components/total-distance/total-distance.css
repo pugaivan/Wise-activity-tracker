@@ -1,0 +1,11 @@
+.total-wrapper{
+    background-color: #f1ebfd;
+    border: 2px solid #dfd8d6;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.total-distance-text{
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createActivity } from '../../services/api';
+import './activity-form.css'
 
 const ACTIVITY_TYPES = {
     RIDE: 'Ride',
@@ -38,8 +39,9 @@ const ActivityForm = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={onFormSubmit} >
+        <div className='wrapper'>
+            <h3>Add new activity:</h3>
+            <form onSubmit={onFormSubmit} className='activity-from'>
                 <input type='datetime-local' onChange={onStartTimeChange}></input>
                 <input type='datetime-local' onChange={onFinishTimeChange}></input>
                 <input type='number' step='0.1' placeholder='Distance' onChange={onDistanceChange}></input>
