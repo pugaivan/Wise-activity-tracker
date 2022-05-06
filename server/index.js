@@ -23,47 +23,50 @@ app.listen(PORT, () => {
 });
 
 app.post('/create', (req, res) => {
-  console.log(req.body)
-  const {msDifference,startMonthAndDay,distance,type} = req.body
+  const { msDifference, startMonthAndDay, distance, type } = req.body
   const query = `INSERT INTO activity(ms_difference,start_month_and_day,distance,activity_type) VALUES (${msDifference},'${startMonthAndDay}',${distance},'${type}');`
-  connection.query(query, function (err, rows, fields) {
-    console.log(rows,fields,err)
-  });
+  connection.query(query);
   res.sendStatus(200)
 })
 
 app.get('/activities', (req, res) => {
-  const data = [
-    {
-      startMonthAndDay: 'December 1',
-      type: 'Run',
-      msDifference: 1620000,
-      distance: 6
-    },
-    {
-      startMonthAndDay: 'May 1',
-      type: 'Ride',
-      msDifference: 6300000,
-      distance: 25
-    }
-  ]
-  res.send(data)
+  const query = 'SELECT * FROM activity_tracker.activity;'
+  connection.query(query, (err, rows, fields) => {
+    res.send(rows.map((row) => getFormatedRow(row)))
+  });
 })
-
 
 app.get('/total', (req, res) => {
-  const data = {
-    totalRideDistance: 15,
-    totalRunDistance: 5
-  }
-  res.send(data)
+  const runQuery = 'SELECT sum(distance) as run_sum FROM activity_tracker.activity where activity_type = "Run";'
+  const rideQuery = 'SELECT sum(distance) as ride_sum FROM activity_tracker.activity where activity_type = "Ride";'
+  connection.query(runQuery, (err, runRows, fields) => {
+    connection.query(rideQuery, (err, rideRows, fields) => {
+      res.send({
+        totalRideDistance: rideRows[0].ride_sum ? rideRows[0].ride_sum.toFixed(1) : 0,
+        totalRunDistance: runRows[0].run_sum ? runRows[0].run_sum.toFixed(1) : 0
+      })
+    })
+  })
 })
-
 
 app.get('/longest', (req, res) => {
-  const data = {
-    longestRide: { date: 'December 11', distance: 25, time: 6300000 },
-    longestRun: { date: 'May 12', distance: 5, time: 1620000 }
-  }
-  res.send(data)
+  const runQuery = 'SELECT * FROM activity_tracker.activity where  activity_type = "Run" order by distance desc limit 0,1'
+  const rideQuery = 'SELECT * FROM activity_tracker.activity where  activity_type = "Ride" order by distance desc limit 0,1'
+  connection.query(runQuery, (err, runRows, fields) => {
+    connection.query(rideQuery, (err, rideRows, fields) => {
+      res.send({
+        longestRide: rideRows[0] ? getFormatedRow(rideRows[0]) : null,
+        longestRun: runRows[0] ? getFormatedRow(runRows[0]) : null
+      })
+    })
+  })
 })
+
+const getFormatedRow = (row) => {
+  return {
+    startMonthAndDay: row.start_month_and_day,
+    type: row.activity_type,
+    msDifference: row.ms_difference,
+    distance: row.distance
+  }
+}
